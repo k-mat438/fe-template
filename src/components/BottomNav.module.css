@@ -1,0 +1,151 @@
+.nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  height: 80px;
+  padding: 8px 8px 24px; /* 下部にセーフエリア用の余白 */
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border-top: 1px solid rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .nav {
+    background: rgba(0, 0, 0, 0.95);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+  }
+}
+
+/* ピル型背景 */
+.pill {
+  position: absolute;
+  top: 8px;
+  width: calc(25% - 16px);
+  height: 48px;
+  background: #000000;
+  border-radius: 16px;
+  transition: left 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+}
+
+/* ダークモード対応 */
+@media (prefers-color-scheme: dark) {
+  .pill {
+    background: #ffffff;
+    box-shadow: 0 4px 20px rgba(255, 255, 255, 0.2);
+  }
+}
+
+/* タブボタン */
+.tab {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 25%;
+  height: 48px;
+  padding: 8px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.tab:focus-visible {
+  outline: 2px solid rgba(0, 0, 0, 0.3);
+  outline-offset: 2px;
+  border-radius: 12px;
+}
+
+@media (prefers-color-scheme: dark) {
+  .tab:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.3);
+  }
+}
+
+/* アイコン */
+.tab:not(.active) .icon {
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.tab.active .icon {
+  color: #ffffff;
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.2));
+}
+
+/* ラベル */
+.tab:not(.active) .label {
+  font-size: 10px;
+  font-weight: 600;
+  color: #1a1a1a;
+  transition: all 0.3s ease;
+}
+
+.tab.active .label {
+  color: #ffffff;
+}
+
+/* ダークモードのタブ */
+@media (prefers-color-scheme: dark) {
+  .tab:not(.active) .icon {
+    color: #94a3b8;
+  }
+
+  .tab:not(.active) .label {
+    color: #94a3b8;
+  }
+
+  .tab.active .icon,
+  .tab.active .label {
+    color: #000000;
+  }
+}
+
+/* ホバーエフェクト（タッチデバイス以外） */
+@media (hover: hover) {
+  .tab:not(.active):hover .icon {
+    color: rgba(0, 0, 0, 0.6);
+    transform: translateY(-2px);
+  }
+
+  .tab:not(.active):hover .label {
+    color: rgba(0, 0, 0, 0.6);
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  @media (hover: hover) {
+    .tab:not(.active):hover .icon {
+      color: rgba(255, 255, 255, 0.6);
+    }
+
+    .tab:not(.active):hover .label {
+      color: rgba(255, 255, 255, 0.6);
+    }
+  }
+}
+
+/* アクティブ時の押し込みエフェクト */
+.tab:active {
+  transform: scale(0.95);
+}
+
+/* セーフエリア対応（iPhone X以降） */
+@supports (padding-bottom: env(safe-area-inset-bottom)) {
+  .nav {
+    padding-bottom: calc(12px + env(safe-area-inset-bottom));
+    height: calc(68px + env(safe-area-inset-bottom));
+  }
+}
